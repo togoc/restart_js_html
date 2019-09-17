@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jsonp</title>
+    <style>
+        li:hover {
+            background: red;
+        }
+
+        ul {
+            transition: all .5s;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" class="input">
+    <p>其他的内容</p>
+</body>
+<script src="js/juqery_3.4.1.js"></script>
+<script>
+    function addTipsHtml(obj) {
+        console.log(obj)
+
+        var list = document.querySelector('.list')
+        if (list) {
+            document.body.removeChild(list)
+        }
+
+        var script = document.querySelector('#jsonp')
+        script.parentNode.removeChild(script)
+        var timer
+        var ul = document.createElement('ul')
+        ul.setAttribute('class', 'list')
+        ul.style.paddingLeft = '10px'
+        ul.style.position = 'absolute'
+        ul.style.background = "rgb(184, 232, 141)"
+        ul.innerHTML = ""
+
+        for (x in obj['g']) {
+            var li = `<li style="list-style:none;cursor: pointer;">${obj['g'][x]['q']}</li>`
+            ul.innerHTML += li
+        }
+
+
+        if (obj['g'])
+            document.body.insertBefore(ul, document.body.children[1])
+    }
+
+    document.querySelector('.input').addEventListener('keyup', function () {
+        var script = document.createElement('script')
+        script.id = 'jsonp'
+        script.src = 'https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=1465,21093,18559,29522,29520,29099,29568,29221,26350,29460&csor=1&cb=addTipsHtml&wd=' + this.value
+        document.body.appendChild(script)
+    })
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>字符串</title>
+</head>
+
+<body>
+</body>
+<script>
+    var str = "hello"
+    var str1 = "world"
+    // 基本操作
+    console.log(str[0]) // "h"
+    console.log(str + str1) //"helloworld"
+    console.log(str.sub()) //<sub>hello</sub>
+    console.log(str.charCodeAt(3)) //108 对应字符串下标字符的 ASCII 码
+    console.log(String.fromCharCode(108)) // "l" 根据ASCII 码 返回字符
+    console.log(str.concat(str1)) //helloworld 拼接数组 (一般用"+"拼接)
+    //查找
+    //str.indexOf(字串,开始查找的位置)  返回出现的位置 没有返回 -1
+    console.log(str.indexOf("l", 0)) // 2 第一次出现的位置
+    console.log(str.lastIndexOf("l")) // 3 最后出现的位置
+
+    //str.seach(条件) 返回满足条件第一次出现位置  没有 返回-1
+    // 正则表达式  "abc"  /abc/ig  i代表忽略大小写  g全局
+    var str = "aBcaBcABC"
+    console.log(str.search(/abc/ig))
+
+    //str.replace(匹配的字符串/表达式,替换成的新字符) 返回修改后的字符串 原不变
+    var str = "hellollo"
+    console.log(str.replace("llo", "y"))//"heyllo"只能修改满足条件的第一个(区分大小写)
+    console.log(str.replace(/llo/ig, "y")) //"heyy" 可以修改多个忽略大小写(自定)
+
+    //str.subString(start,end) //返回满足下标字符串,不包含结尾
+    var str = "hellollo"
+    console.log(str.substring(2, 4)) //"ll"
+
+    //str.split(字符串,number) //返回分割字符串的数组 number限制数组长度(一般不用)
+    var str = "hellollo"
+    console.log(str.split("o")) // ["hell", "ll", ""]
+    console.log(str.split("")) //  ["h", "e", "l", "l", "o", "l", "l", "o"]
+    console.log(str.split(" ")) // ["hellollo"]
+
+    console.log(str.toLowerCase()) // ["hellollo"] //原不变
+    console.log(str.toUpperCase()) // ["HELLOLLO"] //原不变
+
+    //str.slice(start,end) //不包含结尾
+    console.log(str.slice(0, 3)) //"hel"
+
+    var str = '001244'
+    String.prototype.resort = function () {
+        var arr = []
+        for (let i = 0; i < this.length; i++) {
+            if (i % 2 == 0) {
+                arr.push(this.slice(i, i + 2))
+            }
+        }
+        return arr
+    }
+
+    console.log(str.resort())
+</script>
+
+</html>

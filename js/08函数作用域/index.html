@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数作用域</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // a = 10
+    // function demo() {
+    //     var _this = this
+    //     var a = 5
+    //     return function () {
+    //         console.log(a)
+    //         console.log(this.a)
+    //         return function () {
+    //             var a = 11
+    //             console.log(a)
+    //         }
+    //     }
+    // }
+    // demo()()() // 5 10  11
+
+    var a = 10
+    function demo() {
+        console.log(a)
+        var a = 5
+    }
+
+    console.log(a) //10
+    demo() //undefined  函数运行先分配内存空间
+    console.log(a) //10 
+
+</script>
+
+</html>

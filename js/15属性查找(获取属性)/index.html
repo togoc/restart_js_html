@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>属性查找</title>
+    <style>
+        .gua {
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gua" style="width:100px"></div>
+</body>
+<script>
+    var gua = document.querySelector('.gua')
+    console.log(gua.style.width) //"100px"
+    console.log(gua.style.height) //"" 只能获取行内样式
+
+    //获取有效样式getComputedStyle(元素节点)[样式名] 火狐/谷歌/safari 支持
+    console.log(getComputedStyle(gua)["height"]) //"100px"
+    //获取有效样式 元素节点.currentStyle[样式名] IE
+
+    function getStyle(elem, str) {
+        return (elem.currentStyle) ? (elem.currentStyle[str]) : (getComputedStyle(elem)[str])
+    }
+    console.log(getStyle(gua, "height"))
+</script>
+
+</html>

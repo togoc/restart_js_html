@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>字符类型自动转换</title>
+</head>
+
+<body>
+    <pre>
+            var a = "您" + "好"// "您好"
+            var a = 1 + "1" + 1// "111"
+            var a = 1 + "1" - 1// 10
+            var a = 1 - "1" - 1// -1
+            var a = 1 - "1a"// NaN not a number
+            var a = NaN + NaN// NaN 
+            var a = NaN - NaN// NaN 
+        
+        
+        
+            var a = 1 / 0 //Infinity 无穷大
+            var a = -1 / 0 //-Infinity 无穷小
+            var a = 1 * "1" // 1
+            var a = 1 / "1" // 1
+            var a = 1 / true // 1
+            var a = 1 + true//2   true相当于1
+            var a = 1 + false//1    false相当于0
+            var a = 1 / false // Infinity
+            var a = 1 + undefined //NaN
+            var a = 1 + null //1
+            // 先将非数字用Number()转换,再进行运算
+        
+            var a = Boolean(0)//false
+            var a = Boolean("")//false
+            var a = Boolean(null)//false
+            var a = Boolean(1)//true
+            var a = Boolean("hello")//true 强制类型转换,转换为布尔值
+            var a = Boolean(null)//false
+            var a = Boolean(undefined)//false
+            // if判断语句根据Boolean(xx)判断
+        
+        
+            var a = Number(true) //1
+            var a = Number(false) //0
+            var a = Number("false") //NaN
+            var a = Number("") //0
+            var a = Number("1") //1
+            var a = Number("0") //0
+            var a = Number(null) //0
+        
+            // 特别
+            var a = Number(undefined) //NaN
+        
+            var a = parseInt("1aa")//1
+            var a = parseInt(3.14)//3
+            var a = parseInt("a1aa")//NaN
+            var a = parseInt("")//NaN
+            var a = parseInt(false)//NaN
+            var a = parseInt(true)//NaN
+            var a = parseInt(null)//NaN
+            var a = parseInt(undefined)//NaN
+            var a = parseInt(Infinity)//NaN
+        
+            var a = parseFloat("1aa")//1
+            var a = parseFloat("")//NaN
+            var a = parseFloat(3.14)//3.13
+            var a = parseFloat("a1aa")//NaN
+            var a = parseFloat(false)//NaN
+            var a = parseFloat(true)//NaN
+            var a = parseFloat(null)//NaN
+            var a = parseFloat(undefined)//NaN
+            var a = parseFloat(Infinity)//Infinity
+            console.log(a)
+        
+        
+        
+            var a = 1 + undefined // NaN
+            var a = 1 / undefined // NaN
+            var a = 1 - undefined // NaN
+    </pre>
+</body>
+<script>
+    var a = "您" + "好"// "您好"
+    var a = 1 + "1" + 1// "111"
+    var a = 1 + "1" - 1// 10
+    var a = 1 - "1" - 1// -1
+    var a = 1 - "1a"// NaN not a number
+    var a = NaN + NaN// NaN 
+    var a = NaN - NaN// NaN 
+
+
+
+    var a = 1 / 0 //Infinity 无穷大
+    var a = -1 / 0 //-Infinity 无穷小
+    var a = 1 * "1" // 1
+    var a = 1 / "1" // 1
+    var a = 1 / true // 1
+    var a = 1 + true//2   true相当于1
+    var a = 1 + false//1    false相当于0
+    var a = 1 / false // Infinity
+    var a = 1 + undefined //NaN
+    var a = 1 + null //1
+    // 先将非数字用Number()转换,再进行运算
+
+    var a = Boolean(0)//false
+    var a = Boolean("")//false
+    var a = Boolean(null)//false
+    var a = Boolean(1)//true
+    var a = Boolean("hello")//true 强制类型转换,转换为布尔值
+    var a = Boolean(null)//false
+    var a = Boolean(undefined)//false
+    // if判断语句根据Boolean(xx)判断
+
+
+    var a = Number(true) //1
+    var a = Number(false) //0
+    var a = Number("false") //NaN
+    var a = Number("") //0
+    var a = Number("1") //1
+    var a = Number("0") //0
+    var a = Number(null) //0
+
+    // 特别
+    var a = Number(undefined) //NaN
+
+    var a = parseInt("1aa")//1
+    var a = parseInt(3.14)//3
+    var a = parseInt("a1aa")//NaN
+    var a = parseInt("")//NaN
+    var a = parseInt(false)//NaN
+    var a = parseInt(true)//NaN
+    var a = parseInt(null)//NaN
+    var a = parseInt(undefined)//NaN
+    var a = parseInt(Infinity)//NaN
+
+    var a = parseFloat("1aa")//1
+    var a = parseFloat("")//NaN
+    var a = parseFloat(3.14)//3.13
+    var a = parseFloat("a1aa")//NaN
+    var a = parseFloat(false)//NaN
+    var a = parseFloat(true)//NaN
+    var a = parseFloat(null)//NaN
+    var a = parseFloat(undefined)//NaN
+    var a = parseFloat(Infinity)//Infinity
+    console.log(a)
+
+
+
+    var a = 1 + undefined // NaN
+    var a = 1 / undefined // NaN
+    var a = 1 - undefined // NaN
+
+
+</script>
+
+</html>

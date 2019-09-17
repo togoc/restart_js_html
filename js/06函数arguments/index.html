@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /**
+        每一个函数内部都有一个变量，叫做arguments。
+        arguments可以储存当前函数传入的所有参数，而且
+        是通过传参的顺序进行排列的。
+    
+        arguments.length 输入参数的个数
+        访问arguments中的数据，需要通过数据下标进行访问
+    
+    **/
+
+    function sum() {
+        var sum = 0
+        for (let i = 0; i < arguments.length; i++) {
+            sum += arguments[i];
+        }
+        console.log(sum)
+    }
+    sum(12, 4, 5)
+</script>
+
+</html>

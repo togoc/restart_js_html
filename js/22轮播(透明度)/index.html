@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .slider {
+            margin: auto;
+            width: 320px;
+            height: 200px;
+            border: 5px solid red;
+            position: relative;
+
+        }
+
+        .slider:hover button {
+            opacity: 1;
+        }
+
+        .list img {
+            width: 320px;
+            height: 200px;
+        }
+
+        .list_items {
+            list-style: none;
+            position: absolute;
+            opacity: 0;
+        }
+
+        .slider button {
+            position: absolute;
+            top: 80px;
+            opacity: 0;
+            cursor: pointer;
+            margin: 15px;
+            padding: 5px;
+            transition: all .3s;
+            background: rgba(70, 190, 70, 0);
+            border: 5px solid green;
+        }
+
+        .tips {
+            list-style: none;
+            position: absolute;
+            top: 180px;
+            right: 10px;
+        }
+
+        .tips li {
+            width: 10px;
+            height: 10px;
+            background: gray;
+            float: left;
+            cursor: pointer;
+            border: 2px solid white;
+            font-size: 10px;
+            line-height: 10px;
+            text-align: center;
+            margin-left: 10px;
+        }
+
+        .tips li:first-of-type {
+            background: red;
+        }
+
+        .list li:first-of-type {
+            opacity: 1;
+        }
+
+        .next {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider">
+        <ul class="list">
+            <li class="list_items"><img src="images/01.jpg" alt=""></li>
+            <li class="list_items"><img src="images/02.jpg" alt=""></li>
+            <li class="list_items"><img src="images/03.jpg" alt=""></li>
+        </ul>
+        <ul class="tips">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+        <button class="prev">prev</button>
+        <button class="next">next</button>
+    </div>
+
+
+</body>
+
+<script>
+
+    function slider() {
+        var timer
+        var index = 0
+        var list_items = document.querySelectorAll('.list_items')
+        var tips = document.querySelectorAll('.tips li')
+
+        auto() //自动轮播   
+        bind()//绑定点击
+        function animate(elem, properties) {
+            function getStyle(elem, property) {
+                if (getComputedStyle) {
+                    return getComputedStyle(elem)[property]
+                } else {
+                    return elem.currentStyle[property]
+                }
+            }
+            clearInterval(elem.timerId)
+            elem.timerId = setInterval(() => {
+                for (let property in properties) {
+                    let target = properties[property]
+                    if (property == "opacity") {
+                        let current = (getStyle(elem, property)) * 100
+                        // if (current == target) {
+                        //     continue
+                        // }
+                        let speed = (target - current) / 10
+                        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+                        elem.style[property] = (current + speed) / 100
+                    } else if (property == "background") {
+                        elem.style[property] = target
+                    }
+                    else {
+                        let current = parseInt(getStyle(elem, property));
+                        // if (current == target) {
+                        //     continue
+                        // }
+                        let speed = (target - current) / 30
+                        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+                        elem.style[property] = current + speed + 'px'
+                    }
+                }
+            }, 30);
+        }
+        function sliderTo(prev, next) {
+            animate(list_items[prev], { opacity: 0 });
+            animate(list_items[next], { opacity: 100 });
+            animate(tips[next], { background: 'red' });
+            animate(tips[prev], { background: 'gray' });
+        }
+        function next() {
+            index++;
+            (index > 2) && (index = 0);
+            sliderTo(index <= 0 ? 2 : index - 1, index)
+        }
+        function prev() {
+            index--;
+            (index < 0) && (index = 2);
+            sliderTo(index >= 2 ? 0 : index + 1, index)
+        }
+        function bind() {
+            var oprev = document.querySelector('.prev')
+            var onext = document.querySelector('.next')
+            oprev.addEventListener('click', () => {
+                prev()
+                clearInterval(timer)
+                setTimeout(auto, 3000)
+            })
+            onext.addEventListener('click', () => {
+                next()
+                clearInterval(timer)
+                setTimeout(auto, 3000)
+            })
+
+            for (var i = 0; i < tips.length; i++) {
+                tips[i].index = i
+                tips[i].addEventListener('click', function () {
+                    sliderTo(index, this.index)
+                    index = this.index
+                    clearInterval(timer)
+                    setTimeout(auto, 3000)
+                })
+            }
+        }
+        function auto() {
+            if (timer) {
+                clearInterval(timer);
+                timer = undefined
+                timeOut = setTimeout(() => {
+                    auto();
+                }, 5000);
+            } else {
+                timer = setInterval(() => {
+                    next()
+                }, 3000);
+            }
+        }
+    }
+
+    window.onload = function () {
+        slider()
+    }
+
+</script>
+
+<script>
+
+</script>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>while循环</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //while
+    var i = 0
+    var str = "*"
+    var str1 = ""
+
+    while (i < 5) {
+        i++
+        str1 = str1 + str + "<br/>"
+        str += "*"
+    }
+    document.write(str1)
+    console.log(str1)
+    console.log("------------------------------")
+    //do while
+    var i = 0
+    do {
+        i++
+        console.log(i)
+    } while (i < 5);
+    console.log("------------------------------")
+    //for循环
+    var str = "*"
+    for (let i = 0; i < 5; i++) {
+        document.write(str)
+        str += "*"
+        document.write("<br>")
+    }
+    console.log("------------------------------")
+    var str = "*", str1 = "#####"
+    for (let i = 0; i < 5; i++) {
+        if (i == 0) {
+            document.write(str1)
+            document.write("<br>")
+            str1 = "####"
+        }
+        document.write(str)
+        document.write(str1)
+        str1 = str1.slice(0, str1.length - 1)
+        str += "*"
+        document.write("<br>")
+    }
+    console.log("------------------------------")
+    var str = "O"
+    var str1 = str
+    var str2 = "0"
+
+    var leval = 11
+    for (let i = 0; i < leval; i++) {
+        if ((i + 1) % 2 != 0) {
+            for (let j = 0; j < (leval - 1) / 2 - (i / 2); j++) {
+                document.write(str2)
+            }
+
+            document.write(str)
+
+            for (let j = 0; j < (leval - 1) / 2 - (i / 2); j++) {
+                document.write(str2)
+            }
+            document.write("<br>")
+        }
+        str += str1
+    }
+    //break  结束循环
+    for (let i = 0; i < 5; i++) {
+        if( i == 2){
+            break
+        }
+        console.log(i)
+    }
+    console.log("------------------------------")
+
+    //continue  跳过满足条件，继续执行
+    for (let i = 0; i < 5; i++) {
+        if( i == 2){
+            continue
+        }
+        console.log(i)
+    }
+    console.log("------------------------------")
+
+</script>
+
+</html>

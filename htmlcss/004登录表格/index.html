@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录表格</title>
+    <style>
+        td {
+            height: 20px;
+        }
+
+        td input {
+            border-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- action为提交的网址 -->
+    <form action="localhost" method="GET">
+        <table border="1px" cellspacing="0" width="400px">
+            <tbody>
+                <tr>
+                    <td rowspan="4" align="center ">总体信息</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>用户名:</td>
+                    <td>
+                        <input type="text" name="username">
+                    </td>
+                </tr>
+                <tr>
+                    <td>密码:</td>
+                    <td>
+                        <input type="password" name="psw">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center ">
+                        <input type="submit" value="提交">
+                        <input type="reset" value="重置">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</body>
+
+</html>

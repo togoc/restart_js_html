@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组的属性</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    /*
+        数组的遍历 for ; for in(for i in arr)效率高 ;arr1 = arr.map(function(item,index,array){})
+    
+    */
+
+    //arr.map()
+    var arr = [1, 3, 4]
+    var arr1 = arr.map((x) => x * x)
+    console.log(arr1) //[1, 9, 16]
+    console.log(arr) //[1, 3, 4]
+
+    var arr = [0, 1, 2, 3]
+    var newArr = arr.map((item, index, arry) =>
+        item * item
+    )
+    console.log(newArr)//[0, 1, 4, 9]
+
+    //arr.reduce(function(pre,next,index,array){})
+    //pre 当前遍历return的值
+    //next 下一个遍历的元素
+
+    var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    var arr1 = arr.reduce((pre, next, index, array) => pre + next)
+    console.log(arr1)//45
+
+    //arr.filetr(function(item,index,array){}) 返回满足条件的元素的一个数组
+    var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    var arr1 = arr.filter((i) => i > 5)
+    console.log(arr1)//6 7 8 9
+
+    //arr.some(function(item,index,array){}) 其中一个满足条件返回true 否则false
+    var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    var arr1 = arr.some((i) => i > 5)
+    console.log(arr1)//true
+    //arr.every(function(item,index,array){})  //与some相反
+
+
+    /*栈结构*/
+    //push() 末尾添加 返回值：添加后数组的长度length
+    var arr = ["蜘蛛侠", "蚁人", "绿巨人"]
+    var res = arr.push("钢铁侠")
+    console.log(arr) // ["蜘蛛侠", "蚁人", "绿巨人", "钢铁侠"]
+    console.log(res) //4
+
+    //pop() 移除数组最后一个元素 返回值：移除的元素
+    var arr = ["蜘蛛侠", "蚁人", "绿巨人"]
+    var res = arr.pop()
+    console.log(arr) // ["蜘蛛侠", "蚁人"]
+    console.log(res) //绿巨人
+
+    /*队列结构*/
+    //push() 末尾添加 返回值：添加后数组的长度length
+
+    //shift() 移除数组第一个头部元素 返回值：移除的元素
+    var arr = ["蜘蛛侠", "蚁人", "绿巨人"]
+    var res = arr.shift("猴子", "白骨精")
+    console.log(arr) // ["蚁人", "绿巨人"]
+    console.log(res) //蜘蛛侠
+
+    //unshift() 头部插入 返回值：插入元素后的数组长度
+    var arr = ["蜘蛛侠", "蚁人", "绿巨人"]
+    var res = arr.unshift("猴子", "白骨精")
+    console.log(arr) // ["猴子", "白骨精", "蜘蛛侠", "蚁人", "绿巨人"]
+    console.log(res) //5
+
+
+    /*其他*/
+    //concat() 连接连个数组原数组均不变
+    var arr = ["蜘蛛侠", "蚁人", "绿巨人"]
+    var arr1 = ["蜘蛛侠", "蚁人", "绿巨人"]
+    var res = arr.concat(arr1)
+    console.log(arr) // ["蜘蛛侠", "蚁人", "绿巨人"]
+    console.log(arr1) // ["蜘蛛侠", "蚁人", "绿巨人"]
+    console.log(res) //["蜘蛛侠", "蚁人", "绿巨人", "蜘蛛侠", "蚁人", "绿巨人"]
+
+    //splice()  arr.splice(start,end,str) 
+    //创建一个新数组，原数组改变 返回被切元素数组
+    //移除选定下标(不包括结尾下标的元素)，在截取的开始下标插入元素，个数不限
+    var arr = ["蜘蛛侠", "蚁人", "绿巨人"]
+    var res = arr.splice(0, 1, "唐僧")
+    console.log(arr) //  ["唐僧", "蚁人", "绿巨人"]
+    console.log(res) //["蜘蛛侠"]
+
+    //slice()  arr.splice(start,end) 创建一个新数组，原数组不变 返回被切元素数组
+    var arr = ["蜘蛛侠", "蚁人", "绿巨人"]
+    var res = arr.slice(0, 1)
+    console.log(arr) //  ["蜘蛛侠", "蚁人", "绿巨人"]
+    console.log(res) //["蜘蛛侠"]
+
+    //join()   join(拼接符)使用拼接符将数组连接成字符串 返回接好的字符串 原数组不变
+    var arr = ["蜘蛛侠", "蚁人", "绿巨人"]
+    var res = arr.join("-")
+    console.log(arr) //  ["蜘蛛侠", "蚁人", "绿巨人"]
+    console.log(res) //"蜘蛛侠-蚁人-绿巨人"
+
+    //arr.indexOf(元素,index) //index为开始查询的下标  返回满足条件开始下标 没有返回-1 
+    var arr = ["蜘蛛侠", "蚁人", "绿巨人"]
+    var res = arr.indexOf("蚁人", 2)
+    console.log(arr) //  ["蜘蛛侠", "蚁人", "绿巨人"]
+    console.log(res) // -1
+
+    //arr.forEach(function(item,index,array){})
+    //item 当前遍历到的元素
+    //index 当前遍历到的元素的下标
+    //array 当前数组
+
+    var arr = ["蜘蛛侠", "蚁人", "绿巨人"]
+    var res = arr.forEach((item, index, array) => {
+        // console.log(item+index) //
+        // console.log(array) //  ["蜘蛛侠", "蚁人", "绿巨人"]
+    })
+
+    // 二维数组
+    // var arr = []
+    // var count = 0
+    // for (let i = 0; i < 5; i++) {
+    //     var newArr = []
+    //     for (let j = 0; j < 5; j++) {
+    //         newArr.push(++count)
+    //     }
+    //     arr.push(newArr)
+    // }
+
+    // for (let i = 0; i < arr.length; i++) {
+    //     for (var b = 0; b < i; b++) {
+    //         document.write("&ensp;&ensp;")
+    //     }
+    //     for (let j = 0; j < 5 - i; j++) {
+    //         document.write(arr[i][j + i] + "&ensp;&ensp;")
+    //     }
+    //     document.write("<br>")
+    // }
+    // console.log(arr)
+    // //排序
+    // //arr.reverse() 逆向排序
+    // var arr = [1, 2, 3, 5, 11, 2, 5, 8, 5, 0]
+    // arr.reverse()
+    // console.log(arr) //[0, 5, 8, 5, 2, 11, 5, 3, 2, 1]
+
+    // //arr.sort() //如果没有参数按编码排序
+    // var arr = [1, 2, 3, 11, 100, 22, 5, 8]
+    // arr.sort((a, b) => { return b - a })
+    // console.log(arr) //[1, 2, 3, 5, 8, 11, 22, 100]  ,b-a相反
+
+
+</script>
+
+</html>

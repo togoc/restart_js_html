@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>盒子模型</title>
+    <style>
+        /* 1--------------------------------------- */
+        .box {
+            width: 320px;
+            height: 600px;
+            border: 1px solid #ccc;
+            /* display: flex; */
+        }
+
+        .box div {
+            width: 100px;
+            height: 100px;
+            float: left;
+            background: red;
+        }
+
+        /* .a~div{
+            background: yellow;
+            margin-left: 10px;
+        } */
+        .box div:not(.a) {
+            background: yellow;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 3--------------------------------------- -->
+    <div class="box">
+        <div class="a"></div>
+        <div class="b"></div>
+        <div class="c"></div>
+    </div>
+    <button>毫无用处的按钮</button>
+    <button>点击绑定事件</button>
+    <button onclick="showflat()">显示flat</button>
+</body>
+<script>
+    function show() {
+        alert("看我七十二变")
+    }
+    var flat = true
+    document.querySelectorAll("button")[1].addEventListener('click', function () {
+        var flat = false
+        if (flat) {
+            document.querySelectorAll("button")[0].addEventListener('click', show)
+            this.innerHTML = "点击解绑事件"
+            flat = false
+        } else {
+            document.querySelectorAll("button")[0].removeEventListener('click', show)
+            this.innerHTML = "点击绑定事件"
+            flat = true
+        }
+
+    })
+
+    function showflat() {
+        console.log(flat)
+    }
+
+</script>
+
+</html>

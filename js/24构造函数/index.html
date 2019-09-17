@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>构造函数(继承)</title>
+</head>
+
+<body>
+    <script>
+        function People(name, age) {
+            this.name = name
+            this.age = age
+            this.sayHello()
+        }
+        People.prototype = {
+            num: 1,
+            sayHello: function () {
+                console.log('sayHello')
+            }
+        }
+
+
+        function Student(name, age, id) {
+            People.apply(this, arguments) //仅仅继承构造函数里的内容(相当于把People里的复制到Student)
+            this.id = id
+        }
+
+        Student.prototype = Object.create(People.prototype)//继承构造函数原型
+
+        var st = new Student('tgc', '18', 27)
+        
+        console.log(st)
+    </script>
+</body>
+
+</html>

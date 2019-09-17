@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="点击">
+</body>
+<script>
+    //通过Promis这个构造函数,来创建一个对象
+    // 这个Promis对象,他有三种状态:pending ,fulfill,reject状态
+    //Promis构造函数,有一个参数,这个参数是一个回调,这个回调,操作两个参数,这两个参数,都能够改变
+    //Promise对象的状态,第一个参数,可以将状态从pending==>fulfill,而第二个参数,可以将状态从pending==>reject
+    // var Promise = new Promise(function (resolve, reject) {
+    //     if (/*成功*/) {
+    //         resolve()
+    //     } else {
+    //         reject()
+    //     }
+    // })
+
+    //一般用法
+    var promise = new Promise(function (resolve, reject) {
+        let promise
+        setTimeout(function () {
+            var num = Math.floor(Math.random() * 100)
+            if (num % 2 === 0) {
+                resolve(num)
+            } else {
+                reject(num)
+            }
+        }, 1000)
+    });
+
+    promise.then(function (num) {
+        console.log('resolve ' + num)
+    }).catch(function (num) {
+        console.log('reject ' + num)
+    })
+
+    //foodshop
+    // const axios = require('axios')
+    // module.exports = function ajax(url = '', data = {}, type = 'GET') {
+    //     return new Promise(function (resolve, reject) {
+
+    //         let promise
+
+    //         if (type === 'GET') {
+    //             // 准备url query参数数据
+    //             let dataStr = '' //数据拼接字符串
+    //             Object.keys(data).forEach(key => {
+    //                 dataStr += key + '=' + data[key] + '&'
+    //             })
+    //             if (dataStr !== '') {
+    //                 dataStr = dataStr.substr(0, dataStr.lastIndexOf('&'))
+    //                 url = url + '?' + dataStr
+    //             }
+    //             // 发送get请求
+    //             promise = axios.get(url)
+    //         } else {
+    //             // 发送post请求
+    //             promise = axios.post(url, data)
+    //         }
+
+    //         promise.then(response => {
+    //             resolve(response.data)
+    //         })
+    //             .catch(error => {
+    //                 reject(error)
+    //             })
+    //     })
+    // }
+
+
+</script>
+<script>
+
+
+
+    var x = 'x'
+    function back(x) {
+        var y = 'y' + x
+        return (function (y) {
+            var z = 'z' + y
+            return (function (z) {
+                console.log(z)
+            })(z)
+        })(y)
+    }
+
+    back(x)
+
+    var x = 4
+    function back1(x) {
+        return x += '1'
+    }
+    function back2(x) {
+        return x += '2'
+    }
+    function back3(x) {
+        return x += '3'
+    }
+
+    console.log(back1(back2(back3(x))))
+
+    new Promise(function (resolve, reject) {
+        
+    })
+
+
+</script>
+
+</html>

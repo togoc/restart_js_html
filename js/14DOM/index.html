@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DOM</title>
+</head>
+
+<body>
+    <div title="属性节点" class="xx" id="aa">文本</div>
+    <div class="gua">
+        class
+        <span>11</span>
+        <p>p</p>
+    </div>
+    <div id="gua">id</div>
+    <div name="gua">name</div>
+    <gua>tagName</gua>
+    <div id="a">
+        文本
+        <p>元素</p> <em>斜体</em><strong>粗体</strong><input type="text" value="1"></div>
+</body>
+<script>
+    /*
+        DOM文档对象模型 html开始到结束
+            <div title="属性节点">文本</div>
+                元素节点:<div></div>
+                属性节点:title="属性节点"
+                文本节点: 文本
+        DOM.tagName   节点标签名
+
+    */
+    // 节点查找
+    // document.getElementById(id)
+    function $(str) {
+        switch (str[0]) {
+            case "#":
+                return document.getElementById(str.substring(1)) //唯一
+                break;
+            case ".":
+                return document.getElementsByClassName(str.substring(1)) //多个
+                break;
+            case "=":
+                return document.getElementsByName(str.substring(1)) //多个
+                break;
+            default:
+                return document.getElementsByTagName(str) //多个
+        }
+    }
+    var str = "gua"
+    console.log($("#gua"))
+    console.log($(".gua"))
+    console.log($("=gua"))
+    console.log($("gua"))
+
+    // ---------------------------------------------------------------------------------------------------
+    //  元素节点属性
+    /*
+        childNodes 获取当前节点内的所有子节点
+    */
+    console.log($('#a').childNodes) // [text, p, em, strong](文本或者空格或者回车都会产生text节点对象)
+    console.log($('#a').childNodes[0].nodeName) //"#text"
+    console.log($('#a').childNodes[0].nodeType) //3
+    console.log($('#a').childNodes[0].nodeValue)//"文本"(包含回车和空格)
+
+    console.log($('#a').childNodes[1].nodeName) //"P" (大写)
+    console.log($('#a').childNodes[1].nodeType) //1
+    console.log($('#a').childNodes[1].nodeValue)//"null"
+
+    /*
+       xx.firstChild() xx.lastChild()
+    */
+
+    console.log($('#a').lastChild)//最后一个节点元素 (包含回车和空格)
+    console.log($('#a').firstChild)//第一个节点元素 "文本"(包含回车和空格)
+
+   /*
+    判断和移除空白节点(或者去除非元素节点)
+    /^\s+$/.test() //有空白节点返回true 否则false  
+
+    var reg = / /   reg.test(" ") // true
+
+
+    console.log(/^\s+$/.test(" ")) //true
+    */;
+    function select(nodes) {
+        var arr = []
+        for (let i = 0; i < nodes.length; i++) {
+            if (nodes[i].nodeType == 3 && /^\s+$/.test(nodes[i].nodeValue)) {
+                continue
+            }
+            arr.push(nodes[i])
+        }
+        return arr
+    }
+    console.log(select($('#a').childNodes)) //[text, p, em, strong, input]
+
+    function removeSpaceChild(parent) {
+        for (let i = parent.childNodes.length - 1; i >= 0; i--) {
+            if (parent.childNodes[i].nodeType == 3 && /^\s+$/.test(parent.childNodes[i].nodeValue)) {
+                parent.removeChild(parent.childNodes[i])
+                continue
+            }
+        }
+    }
+    console.log($('#a').childNodes) //NodeList(6) [text, p, text, em, strong, input]
+    removeSpaceChild($('#a'))
+    console.log($('#a').childNodes) //NodeList(5) [text, p, em, strong, input]
+    // ---------------------------------------------------------------------------------------------------
+
+    //  set/get/removeAttribute() attributes
+
+    console.log(document.querySelector(".gua").setAttribute('title', "xx"))
+    //document.querySelector(".gua").title ="xx"
+    console.log(document.querySelector(".gua").getAttribute('title')) // "xx"
+    console.log(document.querySelector(".gua").removeAttribute('title', "xx"))
+    /*
+     点访问和set/get区别
+       1.0  xx.className  和 xx.getAttribute("class")
+       2.0  set/get 支持自定义属性
+         xx.xxx = "yyy" 不生效
+         xx.setAttribute("xxx","yyy") 生效
+       3.0 . 无法删除属性只能设置为空
+    */
+    console.log($('#aa').attributes)//返回元素属性集合数组
+    console.log($('#aa').attributes.id)//属性对象值
+    console.log($('#aa').attributes.class)//属性对象值
+    // ---------------------------------------------------------------------------------------------------
+    /*
+    元素节点操作
+         
+    */
+    //创建节点 document.createElement("span")
+    //插入子节点 父节点.appendChild(节点)
+    function createElementWithtext(tagName, text) {
+        var node = document.createElement(tagName)
+        var text = document.createTextNode(text)
+        node.appendChild(text)
+        console.log(text)
+        return node
+    }
+    var parent = document.querySelector('.gua')
+
+    //父节点.insertbefore(插入的节点,旧节点)
+    console.log(document.querySelector('.gua').children)//不包含文本节点
+    parent.insertBefore(createElementWithtext("span", "span"), parent.children[0])
+    // parent.insertBefore(createElementWithtext("span", "span"), parent.childNodes[1]) //都可以
+    // x节点的下一个节点  x.nextSibling
+
+    //替换节点 父节点.replaceChild(newNode,oldNode)
+    //克隆节点 node.cloneNode()  返回新克隆的节点 参数 : true false  默认false 不克隆节点子节点
+    //xx.parentNode.removeChild(xx) //删除自身节点
+
+</script>
+
+</html>

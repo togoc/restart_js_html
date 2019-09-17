@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>htmlcss</title>
+</head>
+<style>
+    .baidu {
+        width: 400px;
+        border: 1px solid #ccc;
+        background: rgb(173, 168, 168);
+       padding: 10px;
+        font-size: 16px;
+    }
+
+   .baidu li {
+        font-size: 14px;
+        /* list-style: square; */
+    }
+    a {
+        text-decoration: none;
+    }
+
+    h2::after {
+        content: "TENOLOGY";
+        font-size: 10px;
+        color: #ccc;
+    }
+    ul{
+        text-align: left;
+        margin-block-start: 0em;
+        /* margin-block-end: 0em; */
+        padding-inline-start: 1em;
+    }
+</style>
+
+<body>
+    <div class="baidu">
+        <h2>科技&nbsp;</h2>
+        <hr>
+       <ul  type="square">
+        <strong>
+            <li><a href="#">保时捷重心转向电动车</a></li>
+        </strong>
+        <li><a href="#">保时捷重心转向电动车</a></li>
+        <li><a href="#">保时捷重心转向电动车</a></li>
+        <li><a href="#">保时捷重心转向电动车</a></li>
+        <li><a href="#">保时捷重心转向电动车</a></li>
+       </ul>
+        <img src="" alt="图片" title="图片">
+    </div>
+    <u>111</u>
+    10<sup>2</sup>
+    <del>del标签</del>
+</body>
+<script>
+    var baidu = document.querySelector('.baidu')
+    var text = baidu.children[0].innerHTML.split('&')[0]
+    // baidu.title = text
+ baidu.setAttribute('title',text)
+//  baidu.setAttributeNode
+    console.log(baidu.setAttributeNode)
+</script>
+
+</html>

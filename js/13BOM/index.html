@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BOM</title>
+</head>
+
+<body>
+    <input type="button" onclick="link()" value="打开子窗口">
+</body>
+<script>
+    /*
+    window.alert()
+    window.confirm()
+    window.prompt()
+        window 下的函数可以省略直接写函数名调用
+    
+    */
+
+    // console.log(alert("这是alert"))//undefined
+    // console.log(confirm("这是confirm"))//自选true 或 false
+    // console.log(prompt("这是prompt"))//自选输入
+
+    // --open---------------------------------------------------------------------------------
+
+    // open("http://www.baidu.com")  //会被浏览器拦截
+    /*
+        open(url,name,style)
+            url:打开新窗口加载url地址
+            name:没有name的时候会无限打开新窗口,有name每次打开定向已经打开链接的窗口
+            style:给新窗口定义窗口位置大小
+    */
+    var a = 1
+    function link() {
+        open("sub.html", "百度", "width=400,height=400,top=200,left=200")
+    }
+
+    // --location---------------------------------------------------------------------------------
+    // location == window.location == window.document.location
+    //浏览器地址输出框
+    // console.log(location)
+    //hash 锚点#1    location.hash ="#1"
+    //host 主机名:端口号 浏览器默认8080
+    //hostname  主机名 ip/域名
+    //href  整个url
+    //pathname 路径名
+    //port 端口号
+    //protocol 访问协议  http 网络方式 file 文件方式
+    //search ?username=tgc&psw=123  location.search="username=tgc&psw=123"
+
+    // location.assign("www.baidu.com")//跳转指定url
+    // location.reload(true)//重载当前页面,参数为true的时候,强制从服务器加载,忽略缓存
+    // location.replace()//现在url替换新的url,不会产生跳转前的历史
+    // --history---------------------------------------------------------------------------------
+    //浏览器的前进后退
+    // console.log(history)
+    //history.back() //返回上一条历史记录(后退)
+    //history.forward() //前进下一条历史记录(前进)
+    //history.go() // 0 重载当前页面 正数前进对应数量记录 负数后退对应数量记录
+
+    var str = "?username=tgc&psw=123"
+    var search = (str) => {
+        var xx = null;
+        var obj = {}
+
+        var sp = (arr) => {
+            for (let i = 0; i < arr.length; i++) {
+                obj[arr[i].split('=')[0]] = arr[i].split('=')[1]
+            }
+            return obj
+        }
+        (str.length > 0) && (xx = sp(str.substring(1).split("&")));
+        return xx
+    }
+
+    console.log(search(location.search))
+
+  
+
+</script>
+
+</html>

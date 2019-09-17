@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>判断碰撞</title>
+    <style>
+        body {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background: green;
+        }
+
+        .demo1 {
+            top: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="demo"></div>
+    <div class="demo1"></div>
+</body>
+<script>
+
+
+    let demo1 = document.querySelector(".demo1")
+    let demo = document.querySelector(".demo")
+    demo.speedX = 1
+    demo.speedY = 1
+
+    demo1.speedX = 1
+    demo1.speedY = 1
+
+    const move = (elem) => {
+        function getStyle(elem, att) {
+            if (getComputedStyle) {
+                return getComputedStyle(elem)[att]
+            } else {
+                return elem.currentStyle[att]
+            }
+        }
+        let left = elem.speedX + parseInt(getStyle(elem, 'left'))
+        let top = elem.speedY + parseInt(getStyle(elem, 'top'))
+
+        check_border_collision(elem)
+
+        if (check_elem_collision(demo, demo1)) {
+            document.body.removeChild(demo1)
+        }
+
+        elem.style.top = top + 'px'
+        elem.style.left = left + 'px'
+    }
+
+
+    // 判断元素是否碰边,如果是弹回
+    const check_border_collision = (elem) => {
+
+        function getStyle(elem, att) {
+            if (getComputedStyle) {
+                return getComputedStyle(elem)[att]
+            } else {
+                return elem.currentStyle[att]
+            }
+        }
+
+        let left = elem.speedX + parseInt(getStyle(elem, 'left'))
+        let top = elem.speedY + parseInt(getStyle(elem, 'top'))
+
+        if (left < 0) {
+            elem.speedX *= -1
+        }
+
+        if ((top + 100) > innerHeight) {
+            elem.speedY *= -1
+        }
+
+        if (top < 0) {
+            elem.speedY *= -1
+        }
+
+        if ((left + 100) > innerWidth) {
+            elem.speedX *= -1
+        }
+    }
+
+
+    // 判断两个元素是否相碰,如果是返回true
+    const check_elem_collision = (elem, elem1) => {
+        function getStyle(elem, att) {
+            if (getComputedStyle) {
+                return getComputedStyle(elem)[att]
+            } else {
+                return elem.currentStyle[att]
+            }
+        }
+        let width = parseInt(getStyle(elem, 'width'))
+        let width1 = parseInt(getStyle(elem1, 'width'))
+
+        let height = parseInt(getStyle(elem, 'height'))
+        let height1 = parseInt(getStyle(elem1, 'height'))
+
+        let left = parseInt(getStyle(elem, 'left'))
+        let left1 = parseInt(getStyle(elem1, 'left'))
+
+        let top = parseInt(getStyle(elem, 'top'))
+        let top1 = parseInt(getStyle(elem1, 'top'))
+
+        let center = {
+            x: left + width / 2,
+            y: top + height / 2
+        }
+
+        let center1 = {
+            x: left1 + width1 / 2,
+            y: top1 + height1 / 2
+        }
+
+        let diffx = Math.abs(center.x - center1.x)
+        let diffy = Math.abs(center.y - center1.y)
+        if (diffx < (width + width1) / 2 && diffy < (height + height1) / 2) {
+            return true
+        }
+
+        return false
+    }
+
+    setInterval("move(demo)", 10)
+    setInterval("move(demo1)", 10)
+</script>
+
+</html>

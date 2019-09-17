@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单类</title>
+</head>
+
+<body>
+    <button>first kill</button>
+</body>
+<script>
+    function Person() {
+        if (!Person._instance) {
+            Person._instance = {}
+        }
+        return Person._instance
+    }
+
+</script>
+<script>
+    var p1 = new Person()
+    var p2 = new Person()
+    var p3 = new Person()
+
+    console.log(p1 === p2)
+    console.log(p1 === p3)
+    console.log(p2 === p3)
+
+
+</script>
+
+<script>
+
+    function Strategy() {
+
+
+    }
+    Strategy.prototype.narmal = function () {
+        console.log('基础策略')
+    }
+
+    function StrategyA() {
+
+
+    }
+    StrategyA.prototype = Object.create(Strategy.prototype)
+    StrategyA.prototype.narmal = function () {
+        console.log('基础策略A')
+
+
+    }
+    function StrategyB() {
+
+
+    }
+    StrategyB.prototype = Object.create(Strategy.prototype)
+    StrategyB.prototype.narmal = function () {
+        console.log('基础策略B')
+    }
+
+    function Go2V(str) {
+        this.strategy = str
+    }
+
+    Go2V.prototype.vitory = function () {
+        this.strategy.narmal();
+    }
+
+    var gtov = new Go2V(new StrategyA());
+
+    console.log(gtov)
+</script>
+<script>
+
+    function Message() {
+        this.list = [];
+        this.msg = 'hello'
+    }
+
+    Message.prototype.attach = function (hero) {
+        this.list.push(hero)
+    }
+    Message.prototype.notify = function () {
+        for (let i = 0; i < this.list.length; i++) {
+            this.list[i].update()
+        }
+    }
+
+    Message.prototype.setstate = function (msg) {
+        this.msg = msg;
+        this.notify();
+    }
+
+    Message.prototype.getState = function () {
+        return this.msg;
+    }
+
+
+
+    function Hero(name, msg) {
+        this.name = name;
+        this.msg = msg
+    }
+
+    Hero.prototype.update = function () {
+        console.log(this.name + 'received:' + this.msg.getState())
+    }
+
+    var msg = new Message()
+    var hz = new Hero('黄忠', msg)
+    var zy = new Hero('周瑜', msg)
+
+    msg.attach(hz)
+    msg.attach(zy)
+    // msg.attach('黄忠')
+    // msg.attach('黄忠')
+
+
+
+
+    document.querySelector('button:first-of-type').addEventListener('click', function () {
+        msg.notify()
+    })
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

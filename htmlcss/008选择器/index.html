@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>陌生选择器</title>
+    <style>
+        * {
+            margin: 5px;
+            padding: 0;
+        }
+
+        p {
+            background: #ccc;
+            margin: 0;
+            padding: 0 10px;
+            white-space: pre-line;
+            text-align: left;
+        }
+
+        div[id^="de"] {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="border: tomato solid 1px;width: 400px; margin: auto;">
+        <h2>元素选择器</h2>
+        <h4>1.通配选择器</h4>
+        <span> 选定所有元素</span>
+        <p>*{styleRules}</p>
+        <p>
+            *{
+            color:red;
+            }
+        </p>
+
+        <h4>2.类选择器</h4>
+        <span> 选定指定类元素标签元素</span>
+        <p>elements{styleRules}</p>
+        <p>
+            div{
+            color:red;
+            }
+        </p>
+
+        <h4>3.属性选择器</h4>
+        <span> 根据简单属性选择</span>
+        <p>div[attr]{styleRules}</p>
+        <p>
+            div[id]{
+            color:red;
+            }
+        </p>
+
+        <h4>4.属性选择器</h4>
+        <span> 根据简单属性的值选择</span>
+        <p>div[attr="text"][attr="text"]{styleRules}</p>
+        <p>
+            div[id="demo"]{
+            color:red;
+            }
+            <span>多条件选择</span>
+            input[type="text"][class="demo"]{
+            color:green;
+            }
+        </p>
+
+        <h4>5.属性选择器</h4>
+        <span> 属性有多个值，其中一个为val的元素</span>
+        <p>div[class~="val"]{styleRules}</p>
+        <p>
+            div[class~="val"]{
+            color:red;
+            }
+        </p>
+
+        <h4>6.属性选择器</h4>
+        <span> 属性有单个值，以val开头的元素</span>
+        <p>div[class^="val"]{styleRules}</p>
+        <p>
+            div[class^="val"]{
+            color:red;
+            }
+        </p>
+
+        <h4>7.属性选择器</h4>
+        <span> 属性有单个值，以val结尾的元素</span>
+        <p>div[class$="val"]{styleRules}</p>
+        <p>
+            div[class$="val"]{
+            color:red;
+            }
+        </p>
+
+        <h4>8.相邻选择器</h4>
+        <span>元素对象相邻下一个元素</span>
+        <p>h1+p{styleRules}</p>
+        <p>
+            h1+p{
+            color:red;
+            }
+        </p>
+
+        <h4>9.兄弟选择器</h4>
+        <span>元素之后所有满足条件的元素</span>
+        <p>h1~p{styleRules}</p>
+        <p>
+            h1~p{
+            color:red;
+            }
+        </p>
+
+        <h4>10.除xx之外选择器</h4>
+        <span>多个元素中除某个元素外的元素</span>
+        <p>div:not(xx){styleRules}</p>
+        <p>
+            h1~p{
+            color:red;
+            }
+        </p>
+    </div>
+    <div id="demo">text</div>
+</body>
+
+</html>

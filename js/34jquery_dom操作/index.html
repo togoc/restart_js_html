@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+
+    </style>
+    <title>jquery_dom操作</title>
+</head>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</body>
+<script src="../components/juqery_3.4.1.js"></script>
+<script>
+    // 创建元素
+    var $el = $('<div>新的元素</div>')//jquery元素
+    // $('body').append($el);//插入父元素最后
+    // $el.appendTo('body') //插入父元素最后
+    // $('body').prepend($el);//插入父元素最前
+    // $el.prependTo('body')//插入父元素最前
+
+    $('li:eq(2)').after('<li>插入的</li>')
+    $('li:eq(2)').before('<li>插入的</li>')
+    // $('li:last').remove()//删除节点
+    $('li:last').empty()//删除节点内容
+</script>
+
+</html>

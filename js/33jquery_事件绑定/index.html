@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+
+    </style>
+    <title>jquery_事件绑定</title>
+</head>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</body>
+<script src="../components/juqery_3.4.1.js"></script>
+<script>
+    //绑定事件
+    // $('li').on('mouseover', function () {
+    //     $(this).css({ background: 'red' })
+    // }).on('mouseout', function () {
+    //     $(this).css({ background: 'green' })
+    // })
+    // //解绑事件
+    // $('li:eq(2)').off('mouseover')
+    // // $('li:eq(2)').off('mouseout')
+    // $('<li>new li</li>').appendTo('ul') //不起作用
+
+    //事件代理('li:even'偶数)
+    //参考https://www.w3school.com.cn/jquery/jquery_ref_selectors.asp
+    $('ul').on('mouseover', 'li', function () {
+        $(this).css({ background: 'red' })
+
+    }).on('mouseout', 'li', function () {
+        $(this).css({ background: 'green' })
+
+    })
+    $('<li>new li</li>').appendTo('ul') //不起作用
+
+</script>
+
+</html>

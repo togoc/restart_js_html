@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件Event</title>
+    <style>
+        li {
+            list-style: none;
+            margin: 10px;
+            background: red;
+        }
+
+        ul {
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="submit">
+    <input type="text">
+    <ul class="oul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <a href="">这是一个a标签</a>
+</body>
+<script>
+    // onclick/onmousedown/onmousemove/onmouseover/onmouseup
+
+    // input特别
+    // onsubmit 表单提交
+    //onfocus 自动获取焦点
+    //onblur 失去焦点
+    //onchange  改变内容
+
+    /*
+    冒泡
+       function stopBubble(e) {
+                if (e && e.stopPropagation) { //非IE
+                    e.stopPropagation();
+                } else { //IE
+                    window.event.cancelBubble = true;
+                }
+            }
+
+    事件委托:利用冒泡  给其他元素添加事件
+            例如 :
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+            </ul>
+            本来给 123添加了点击事件 但是后面新增 4 5 6  就没有点击事件
+            解决: 直接给ul添加事件
+    */
+    var oul = document.querySelector('.oul')
+    oul.addEventListener('click', function (event) {
+        var _target = event.target || event.srcElement
+        if (_target.nodeName.toUpperCase() == "LI") //防止点击到 ul
+            console.log(_target.innerHTML)
+    })
+
+
+    for (let i = 0; i < 5; i++) {
+        var text = document.createTextNode(i)
+        var li = document.createElement("li")
+        li.appendChild(text)
+        oul.appendChild(li)
+    }
+
+    /*
+
+    阻止默认事件
+        例如:
+            1.0 a标签的跳转
+            2.0 submit的跳转
+            3.0 右键菜单
+            4.0 文本输入框
+    阻止默认事件: event.preventDefault(); event.returnValue = false;
+                 return false;(不好用)
+
+
+    */
+    var olink = document.querySelectorAll('a')[0]
+
+    if (olink.addEventListener) {
+        console.log(1)
+        olink.addEventListener('click', function (e) {
+            var oevent = e || event
+            if (oevent.preventDefault) {
+                oevent.preventDefault()
+            } else {
+                oevent.returnValue = false
+            }
+            console.log("这是一个a标签")
+        }, false)
+    } else {
+        console.log(2)
+        olink.attachEvent('onclick', function (e) { //太老了
+            var oevent = e || event
+            if (oevent.preventDefault) {
+                oevent.preventDefault()
+            } else {
+                oevent.returnValue = false
+            }
+            console.log("这是一个a标签")
+        })
+    }
+
+
+
+
+</script>
+
+</html>

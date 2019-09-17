@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jquery_1</title>
+</head>
+
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <input type="text">
+    <label for="select">选择<input type="checkbox"></label>
+    <table border="1px" cellspacing="0">
+        <thead>
+            <tr align="center">
+                <td><input type="checkbox"></td>
+                <td>全选/不选/少选</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr align="center">
+                <td><input type="checkbox"></td>
+                <td>鲁大师</td>
+            </tr>
+            <tr align="center">
+                <td><input type="checkbox"></td>
+                <td>李白</td>
+            </tr>
+            <tr align="center">
+                <td><input type="checkbox"></td>
+                <td>关羽</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+<script src="../components/juqery_3.4.1.js"></script>
+<script>
+
+    $('li').html('<em>11</em>')
+
+    console.log($('ul').html())
+
+    $('input').keyup(function () {
+        var v = $(this).val()
+        if (v.slice(-2) !== 'px' && v !== '') {
+            $(this).val(v + 'px')
+        }
+    })
+
+    $('label input[type=checkbox]').change(function () {
+        console.log($(this).attr('checked'))//获取html内属性
+        console.log($(this).prop('checked'))//获取dom属性
+    })
+
+    //prop 原生没有这个方法
+
+
+    // 全选/不选/少选
+    $('thead input').change(function () {
+        $('tbody input').prop('checked', $(this).prop('checked'))
+    })
+    $('tbody input').change(function () {
+        ($('tbody input').length == $('tbody input:checked').length) ? ($('thead input').prop('checked', true)) : ($('thead input').prop('checked', false));
+    })
+</script>
+
+</html>

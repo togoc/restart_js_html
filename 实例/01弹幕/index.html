@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .container {
+            position: relative;
+            overflow: hidden;
+            width: 700px;
+            height: 400px;
+            background: green;
+            display: flex;
+            margin: auto;
+        }
+
+        .video {
+            display: block;
+            position: relative;
+            /* overflow: hidden; */
+            background: red;
+            width: 470px;
+            height: 100%;
+        }
+
+        .video video {
+            width: 470px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .showlist {
+            height: 300px;
+            width: 229px;
+            position: relative;
+        }
+
+        .text_area {
+            height: 50px;
+        }
+
+        .text {
+            height: 48px;
+            margin: 0;
+            padding: 0;
+            border: 1px solid green;
+        }
+
+        .input_layout {
+            display: flex;
+            height: 50px;
+        }
+
+        .input_layout input {
+            margin: 0;
+            padding: 0;
+            display: block;
+            width: 100%;
+            height: 46px;
+        }
+
+        .showlist ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .input {
+            z-index: 999;
+        }
+
+        .showlist ul>li {
+            width: 229px;
+            word-wrap:break-word;
+            padding: 2px;
+        }
+
+        .dm {
+            transition: all 10s;
+            left: -100px;
+            vertical-align: baseline;
+            z-index: 998;
+            top: 0;
+            position: absolute;
+        }
+
+        .hide {
+            left: 470px;
+        }
+    </style>
+    <title>弹幕</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="video">
+            <video src=""></video>
+            <div class="dm hide">11</div>
+        </div>
+        <div class="input">
+            <div class="showlist">
+                <ul class="list">
+                </ul>
+            </div>
+            <div class="text_area">
+                <textarea class="text" name="" id="" cols="30"></textarea>
+                <div class="input_layout">
+                    <input type="button" value="发送">
+                    <input type="button" value="重置" name="reset">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function createLi(value) {
+        var text = document.createTextNode(value);
+        var li = document.createElement('li');
+        li.appendChild(text);
+        var parent = document.querySelector('.list');
+        parent.insertBefore(li, parent.children[-1]);
+        createDm(value, 250);
+    }
+    function createDm(value, height) {
+        var text = document.createTextNode(value)
+        var div = document.createElement('div')
+        div.appendChild(text)
+        var parent = document.querySelector('.video')
+
+        var top = Math.random() * height + 'px';
+        div.style.top = top;
+        div.classList.add('dm');
+        div.classList.add('hide');
+        parent.insertBefore(div, parent.children[-1])
+
+        setTimeout(() => {
+            div.classList.remove('hide');
+        }, 500)
+
+        setTimeout(() => {
+            parent.removeChild(div);
+        }, 10000)
+    }
+
+    document.querySelector('.text').addEventListener('change', function () {
+        createLi(this.value);
+    })
+
+
+
+</script>
+
+</html>

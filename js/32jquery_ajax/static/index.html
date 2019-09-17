@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+
+    </style>
+    <title>jquery_ajax</title>
+</head>
+
+<body>
+    
+</body>
+<script src="js/juqery_3.4.1.js"></script>
+<script>
+    // new Promise(function (resolve, reject) {
+    //     $.ajax({
+    //         type: 'get',
+    //         url: '/search',
+    //         data: {
+    //             name: '唐先森'
+    //         },
+    //         success: function (res) {
+    //             resolve(res)
+    //         },
+    //         error: function (error) {
+    //             console.log(error)
+    //         }
+    //     })
+    // }).then(function (res) {
+    //     console.log(res)
+    //     return new Promise(function (resolve, reject) {
+    //         $.ajax({
+    //             type: 'post',
+    //             url: '/search',
+    //             data: {
+    //                 name: '唐先森',
+    //                 age: '18'
+    //             },
+    //             success: function (res) {
+    //                 resolve(res)
+    //             },
+    //             error: function (error) {
+    //                 console.log(error)
+    //             }
+    //         })
+    //     })
+    // }).then(function (res) {
+    //     console.log(res)
+    // })
+
+    // 自带异步请求方法(get方法可以省略)
+    // $.ajax({ url: "api1" }).done(function () {
+    //     return $.ajax({ url: "api2" })
+    // }).done(function () {
+
+    // })
+
+    // JSONP
+    $.ajax({
+        type: 'get',
+        url: 'https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=1465,21093,18559,29522,29520,29099,29568,29221,26350,29460&bs=baidu&csor=2&cb',
+        dataType: 'jsonp',
+        jsonp: 'cb',
+        data: {
+            wd: 'json'
+        }
+    }).done(function (res) {
+        console.log(res)
+    })
+
+</script>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background: green;
+        }
+
+        input {
+            margin-bottom: 10px;
+        }
+    </style>
+    <title>动画</title>
+</head>
+
+<body>
+    <input type="button" value="点击隐藏/显示">
+    <div></div>
+</body>
+<script src="../components/juqery_3.4.1.js"></script>
+<script>
+    var flat = true
+    $('input[type=button]').click(function () {
+        var div = $('div');
+        // flat ? (div.hide(500), flat = false) : (div.show(1000), flat = true);//透明度/宽高
+        // flat ? (div.fadeOut(500), flat = false) : (div.fadeIn(1000), flat = true);//透明度
+        // flat ? (div.slideUp(500), flat = false) : (div.slideDown(1000), flat = true);//上下拉
+        // flat ? (div.animate({ width: 50, height: 50 }), flat = false) : (div.animate({ width: 100, height: 100 }), flat = true);//同时改变
+        // flat ? (div.animate({ width: 50, height: 50 }).animate({ height: 200 }), flat = false) : (div.animate({ width: 100, height: 100 }), flat = true);//多次改变
+        //可以使用div.stop(true)停止正在进行的animate动画,带参数true停止所有动画
+    })
+
+</script>
+
+</html>

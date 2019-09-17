@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    <title>jquery_dom操作</title>
+</head>
+
+<body>
+    <div></div>
+    <div></div>
+</body>
+<script src="../components/juqery_3.4.1.js"></script>
+<script>
+    (function ($) {
+
+        $.fn.extend({
+            remove: function () {
+                function rgb() {
+                    let r = Math.floor(Math.random() * 256)
+                    let g = Math.floor(Math.random() * 256)
+                    let b = Math.floor(Math.random() * 256)
+                    return 'rgb(' + r + ',' + g + ',' + b + ')'
+                }
+                this.each(function (index, el) {
+                    console.log(index, el, $(this))
+                    $(this).css({
+                        background: rgb()
+                    })
+                })
+                return this
+            }
+        })
+
+
+    })(jQuery)
+
+    console.log($('div').remove())
+</script>
+
+</html>

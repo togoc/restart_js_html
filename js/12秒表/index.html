@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>秒表</title>
+    <style>
+        body {
+            font-size: 14px;
+        }
+
+        .Stopwatch {
+            width: 350px;
+            margin: auto;
+            background: #ccc;
+            height: 500px;
+            border: 2px solid #adadad;
+        }
+
+        .show {
+            width: 100%;
+            height: 150px;
+            /* display: flex; */
+            /* align-items: center; */
+            text-align: center;
+            font-size: 2.5rem;
+            line-height: 120px;
+            transform: translate(0px, 30px);
+        }
+
+        .control input {
+            display: block;
+            width: 200px;
+            height: 60px;
+            background: yellow;
+            margin: 20px auto;
+            transition: all .3s linear;
+            transform: translate(0px, 0px);
+            padding: 5px;
+            opacity: 1;
+        }
+
+        .start {
+            margin: 10px auto;
+        }
+
+        .control {
+            width: 100%;
+            transition: all .3s;
+        }
+
+        .nav {
+            width: 60%;
+            margin: auto;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .mark {
+            transition: all .5s;
+            height: 110px;
+            position: absolute;
+            overflow: auto;
+            scroll-margin: 0;
+            width: 350px;
+            left: 2px;
+            top: -5px;
+            z-index: 999;
+        }
+
+        .set {
+            width: 100%;
+            height: 90px;
+            position: relative;
+        }
+
+        /* 滚动条背景 */
+        .mark::-webkit-scrollbar {
+            width: 2px;
+            background: #adadad;
+            border-radius: 3px;
+        }
+
+        /* 滚动条样式 */
+        .mark::-webkit-scrollbar-thumb {
+            background: yellow;
+            display: block;
+            border-radius: 3px;
+        }
+
+        .add {
+            transition: all .3s;
+
+        }
+
+        .pause_no,
+        .end_no {
+            width: 0px !important;
+            padding: 0px !important;
+            border: none;
+            opacity: 0;
+        }
+
+        .start_no {
+            margin: 40px auto;
+        }
+
+        .xx {
+            transform: translate(0px, 18px) !important;
+        }
+
+        .show_no {
+            transform: translate(0px, 0px) !important;
+
+        }
+
+        .tips {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Stopwatch">
+        <div class="show">
+            <span class="mini">00</span>
+            <span>:</span>
+            <span class="second">00</span>
+            <span>:</span>
+            <span class="Milliseconds">00</span>
+        </div>
+        <div class="set">
+            <div class="mark">
+
+
+            </div>
+        </div>
+        <div class="control add">
+            <input class="start start_no" type="button" value="开始">
+            <input class="pause pause_no" type="button" value="暂停">
+            <input class="end end_no" type="button" value="结束">
+        </div>
+    </div>
+</body>
+<script>
+    var btns = document.querySelectorAll('input')
+    var flat = true
+    var i = 0
+    var tips = 0
+    var timer = null
+    var txt1 = null
+    var str1 = null
+
+    function taggleClass(ele, str) {
+        if (ele.classList.contains(str)) {
+            ele.classList.remove(str)
+        } else {
+            ele.classList.add(str)
+        }
+    }
+
+    function start() {
+        if (flat) {
+            var mini = document.querySelector('.mini')
+            var second = document.querySelector('.second')
+            var Milliseconds = document.querySelector('.Milliseconds')
+            timer = setInterval(function () {
+                Milliseconds.innerHTML = (i < 10 ? ("0" + i) : i)
+                i += 1;
+                (i == 100) && (i = 0, second.innerHTML = (Number(second.innerHTML) > 8 ? Number(second.innerHTML) + 1 : ("0" + (Number(second.innerHTML) + 1))));
+                (second.innerHTML == 60) && (mini.innerHTML = (Number(mini.innerHTML) > 8 ? Number(mini.innerHTML) + 1 : ("0" + (Number(mini.innerHTML) + 1))), second.innerHTML = "00");
+            }, 10)
+        }
+        flat = false
+    }
+
+    function reset(ele, otherele, str, classname) {
+        if (ele.value == str) {
+            taggleClass(otherele, classname)
+        }
+    }
+
+    String.prototype.reorder = function () {
+        var arr = []
+        for (let i = 0; i < this.length; i++) {
+            if (i % 2 == 0) {
+                arr.push(this.slice(i, i + 2))
+            }
+        }
+        return arr
+    }
+
+    function prevent_Start() {
+        setTimeout(() => {
+            taggleClass(btns[0], 'xx')
+            taggleClass(btns[1], 'xx')
+            taggleClass(btns[2], 'xx')
+        }, 300)
+        reset(this, btns[1], "开始", "pause_no")
+        reset(this, btns[2], "开始", "end_no")
+        reset(this, this, "开始", "start_no")
+        this.value = "累计"
+        start()
+        this.removeEventListener('click', prevent_Start)
+        this.addEventListener('click', mark)
+    }
+
+    function pause() {
+        if (!flat) {
+            clearInterval(timer)
+            this.value = "继续"
+            flat = true
+            this.removeEventListener('click', pause)
+            this.addEventListener('click', function () {
+                this.value = "暂停"
+                start()
+                this.addEventListener('click', pause)
+            })
+        }
+    }
+
+    function mark() {
+        var txt = document.querySelector('.show').innerHTML
+        if (txt.split("00").length == 4)
+            return
+        if (txt === txt1) {
+            var ms = document.createElement('audio')
+            ms.src = "music/paopao.mp3"
+            ms.setAttribute("autoplay", "")
+            document.body.appendChild(ms)
+            setTimeout(() => {
+                document.body.removeChild(ms)
+            }, 1000)
+            return
+        }
+        txt1 = txt
+        var mark = document.querySelector('.mark')
+        var mini = document.querySelector('.mini').innerHTML
+        var second = document.querySelector('.second').innerHTML
+        var Milliseconds = document.querySelector('.Milliseconds').innerHTML
+        //滚动条自动最底
+        setTimeout(() => {
+            mark.scrollTop = mark.scrollHeight
+        }, 10);
+        //插入
+        ++tips
+        var str = mini + second + Milliseconds
+        var text = str - str1
+        str1 = str
+        while (String(text).length < 6) {
+            text = "0" + text
+        }
+        var t = `
+        <div class="nav">
+            <span class = "tips">${(tips < 10) ? ("0" + tips) : (tips)}&ensp;&ensp;</span>
+            ${txt}
+            <span class = "tips">&ensp;&ensp;${text.reorder()[0] + ':' + text.reorder()[1] + ':' + text.reorder()[2]}</span>
+        </div>
+        `
+        mark.innerHTML += t
+    }
+    btns[0].addEventListener('click', prevent_Start)
+
+    btns[1].addEventListener('click', pause)
+
+    btns[2].addEventListener('click', function () {
+        var mini = document.querySelector('.mini')
+        var second = document.querySelector('.second')
+        var mark = document.querySelector('.mark')
+        var Milliseconds = document.querySelector('.Milliseconds')
+        if (timer) {
+            clearInterval(timer)
+            i = 0
+            reset(btns[0], btns[1], "累计", "pause_no")
+            reset(btns[0], this, "累计", "end_no")
+            reset(btns[0], btns[0], "累计", "start_no")
+            setTimeout(() => {
+                taggleClass(btns[0], 'xx')
+                taggleClass(btns[2], 'xx')
+                taggleClass(btns[1], 'xx')
+            }, 300)
+            btns[0].value = "开始"
+            btns[1].value = "暂停"
+            Milliseconds.innerHTML = "00"
+            mini.innerHTML = "00"
+            second.innerHTML = "00"
+            mark.innerHTML = ""
+            flat = true
+            tips = 0
+            timer = null
+            btns[0].addEventListener('click', prevent_Start)
+            btns[1].addEventListener('click', pause)
+        }
+
+    })
+
+</script>
+
+</html>

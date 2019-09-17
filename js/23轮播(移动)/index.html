@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>移动轮播</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            /* background: black; */
+        }
+        .slider_move {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            overflow: hidden;
+            margin: auto;
+            border: 2px red solid;
+
+        }
+
+        .slider_list {
+            position: relative;
+            margin-block-start: 0px;
+            margin-block-end: 0px;
+            left: 0px;
+            right: 0px;
+            white-space: nowrap;
+            font-size: 0px;
+            padding-inline-start: 0px;
+        }
+
+        .slider_list li {
+            transition: all .5s;
+            position: relative;
+            width: 320px;
+            height: 200px;
+            display: block;
+            display: inline-block;
+        }
+
+        .slider_move img {
+            width: 320px;
+            height: 200px;
+        }
+
+        .tips {
+            position: absolute;
+            list-style: none;
+            right: 10px;
+            bottom: 10px;
+            z-index: 999;
+        }
+
+        .tips li {
+            width: 10px;
+            height: 10px;
+            color: red;
+            float: left;
+            line-height: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 10px;
+            margin-left: 10px;
+            padding: 1px;
+            background: gray;
+        }
+
+        .tips li:first-of-type {
+            background: red;
+            color: white;
+        }
+
+        .slider_move button {
+            position: absolute;
+            cursor: pointer;
+            outline: none;
+            bottom: 0px;
+            opacity: 0;
+            transition: all .3s;
+            bottom: 90px;
+            border-style: none;
+            margin: auto;
+            margin-left: 10px;
+        }
+
+        .slider_move:hover button {
+            opacity: 1;
+        }
+
+        .slider_move button:first-of-type {
+            right: 10px;
+        }
+
+        .next {
+            background: url("images/btn.png") top left no-repeat;
+            width: 17px;
+            height: 32px;
+            background-position: -10px -10px;
+        }
+
+        .prev {
+            background: url("images/btn.png") top left no-repeat;
+            width: 17px;
+            height: 32px;
+            background-position: -10px -52px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider_move">
+        <ul class="slider_list">
+            <li><img src="images/01.jpg" alt=""></li>
+            <li><img src="images/02.jpg" alt=""></li>
+            <li><img src="images/03.jpg" alt=""></li>
+            <li><img src="images/04.jpg" alt=""></li>
+        </ul>
+        <ul class="tips">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <button class="next"></button>
+        <button class="prev"></button>
+    </div>
+</body>
+<script>
+    function slider() {
+        var timer, timeOut
+        var index = 1
+        var slider_list = document.querySelectorAll('.slider_list li')
+        var slider = document.querySelector('.slider_list')
+        var li_last = slider_list[slider_list.length - 1].cloneNode(true)
+        var tips_list = document.querySelectorAll('.tips li')
+        var slider_move = document.querySelectorAll('.slider_move button')
+        slider.insertBefore(li_last, slider_list[0])
+        slider.style.width = 320 * 5 + 'px'
+        slider.style.left = -index * 320 + 'px'
+        bind();
+        function animate(elem, properties) {
+            function getStyle(elem, property) {
+                if (getComputedStyle) {
+                    return getComputedStyle(elem)[property]
+                } else {
+                    return elem.currentStyle[property]
+                }
+            }
+            clearInterval(elem.timerId)
+            elem.timerId = setInterval(() => {
+                for (let property in properties) {
+                    let target = properties[property]
+                    if (property == "opacity") {
+                        let current = (getStyle(elem, property)) * 100
+                        // if (current == target) {
+                        //     continue
+                        // }
+                        let speed = (target - current) / 10
+                        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+                        elem.style[property] = (current + speed) / 100
+                    } else if (property == 'width' || property == 'height' || property == 'left') {
+                        let current = parseInt(getStyle(elem, property));
+                        let speed = (target - current) / 6
+                        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+                        elem.style[property] = current + speed + 'px'
+                    } else {
+                        elem.style[property] = target
+                    }
+
+                }
+            }, 30);
+        }
+        function getStyle(elem, property) {
+            if (getComputedStyle) {
+                return getComputedStyle(elem)[property]
+            } else {
+                return elem.currentStyle[property]
+            }
+        }
+        function prev() {
+            index--;
+            (index <= -1) && (index = 4, slider.style.left = -320 * index + 'px', index = 3);
+            sliderTo(index >= 3 ? 0 : (index + 1), index)
+        }
+        function next() {
+            index++;
+            (index >= 5) && (index = 0, slider.style.left = -index * 320 + 'px', index = 1);
+            sliderTo(index - 1, index)
+        }
+        function sliderTo(prev, next) {
+            animate(slider, { left: -next * 320 });
+            animate(tips_list[prev == 0 ? 3 : (prev - 1)], { background: 'gray' });
+            animate(tips_list[next == 0 ? 3 : (next - 1)], { background: 'red', color: 'white' });
+        }
+        function bind() {
+            autoPlay();
+            for (var i = 0; i < tips_list.length; i++) {
+                tips_list[i].index = i + 1
+                tips_list[i].addEventListener('click', function () {
+                    autoPlay();
+                    sliderTo(index, this.index)
+                    index = this.index
+                })
+                if (slider_move[i]) {
+                    slider_move[i].index = i
+                    slider_move[i].addEventListener('click', function () {
+                        autoPlay();
+                        (this.index == 0) && (next());
+                        (this.index == 1) && (prev());
+                    })
+                }
+            }
+        }
+        function autoPlay() {
+            if (timer) {
+                clearInterval(timer);
+                timer = undefined
+                timeOut = setTimeout(() => {
+                    autoPlay();
+                }, 5000);
+
+            } else {
+                timer = setInterval(() => {
+                    next()
+                }, 3000);
+            }
+
+        }
+    }
+    window.onload = function () {
+        slider()
+    }
+</script>
+
+</html>

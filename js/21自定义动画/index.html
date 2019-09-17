@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义动画</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 100px;
+            height: 100px;
+            background: red;
+            left: 10px;
+            position: absolute;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+<script>
+
+    function animate(elem, properties) {
+        function getStyle(elem, property) {
+            if (getComputedStyle) {
+                return getComputedStyle(elem)[property]
+            } else {
+                return elem.currentStyle[property]
+            }
+        }
+        clearInterval(elem.timerId)
+        elem.timerId = setInterval(() => {
+            for (let property in properties) {
+                console.log(1)
+                let target = properties[property]
+                if (property == "opacity") {
+                    let current = (getStyle(elem, property)) * 100
+                    if (current == target) {
+                        continue
+                    }
+                    let speed = (target - current) / 50
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+                    elem.style[property] = (current + speed) / 100
+                }
+                else {
+                    let current = parseInt(getStyle(elem, property));
+                    if (current == target) {
+                        continue
+                    }
+                    let speed = (target - current) / 30
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed)
+                    elem.style[property] = current + speed + 'px'
+                }
+            }
+        }, 30);
+        setTimeout(() => {
+            clearInterval(elem.timerId)
+        }, 4000)
+    }
+    var div = document.querySelector('div')
+    animate(div, {
+        left: 200,
+        opacity: 20
+    })
+</script>
+
+</html>

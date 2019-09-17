@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="static/juqery_3.4.1.js"></script>
+    <title>JSONP</title>
+</head>
+
+<body>
+    <input type="button" value="点击">
+</body>
+<script>
+    var article = ''
+    function getpara1() {
+        return new Promise(function (resolve, reject) {
+            $.get('static/p1.txt', function (p1) {
+                resolve(p1);
+            })
+        })
+    }
+    function getpara2() {
+        return new Promise(function (resolve, reject) {
+            $.get('static/p2.txt', function (p2) {
+                resolve(p2);
+            })
+        })
+    }
+    function getpara3() {
+        return new Promise(function (resolve, reject) {
+            $.get('static/p3.txt', function (p3) {
+                resolve(p3);
+            })
+        })
+    }
+    getpara1().then(function (p1) {
+        article += p1
+        return getpara2()
+    }).then(function (p2) {
+        article += p2
+        return getpara3()
+    }).then(function (p3) {
+        article += p3
+        console.log(article)
+    })
+</script>
+
+</html>

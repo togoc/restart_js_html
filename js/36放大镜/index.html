@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>放大镜</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container,
+        .bg,
+        .shell,
+        .container img {
+            width: 500px;
+            height: 280px;
+        }
+
+        .container {
+            margin: auto;
+            position: relative;
+        }
+
+        .bg {
+            position: relative;
+            background: rgba(104, 104, 104, .5)
+        }
+
+        .container img {
+            position: absolute;
+            /* opacity: 1; */
+        }
+
+        .show {
+            background-image: url(images/01.png);
+            background-repeat: no-repeat;
+            background-position: 200px 200px;
+            width: 400px;
+            height: 400px;
+            margin: auto;
+        }
+
+        .point {
+            width: 100px;
+            height: 100px;
+            background: red;
+            /* z-index: 999; */
+            top: 0;
+            left: 0;
+            opacity: .3;
+            position: absolute;
+        }
+
+        .shell {
+            position: absolute;
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="images/01.png" alt="">
+        <div class="shell"></div>
+    </div>
+</body>
+<script src="../components/juqery_3.4.1.js"></script>
+<script>
+
+    // 
+    // Magnifier
+
+    (function ($) {
+
+        $.fn.extend({
+            Magnifier: function () {
+                var bg = $('<div class="bg"></div>');
+                var point = $('<div class="point"></div>');
+                var show = $('<div class="show"></div>')
+                // var show = $('.show')
+                $(this).mousemove(function (evt) {
+                    ($('.point').length == 0) && (point.appendTo($('.container')));
+                    // var point = $('.point')
+                    var x = evt.offsetX;
+                    var y = evt.offsetY;
+                    ; (x >= $(this).width() - $('.point').width() / 2) && (x = $(this).width() - $('.point').width() / 2);
+                    ; (y >= $(this).height() - $('.point').height() / 2) && (y = $(this).height() - $('.point').height() / 2);
+                    ; x = x - $('.point').width() / 2;
+                    ; y = y - $('.point').height() / 2;
+                    ; (x <= 0) && (x = 0);
+                    ; (y <= 0) && (y = 0);
+                    point.css({
+                        left: x,
+                        top: y
+                    });
+                    $('body').append(show);
+                    show.css("background-position", `${-x * 3.8}px ${-y * 3.8}px`)
+                    console.log(x, y)
+                }).mouseover(function (evt) {
+                    ($('.bg').length == 0) && (bg.appendTo($('.container')))
+
+                }).mouseout(function (evt) {
+                    $('.bg').remove();
+                    $('.point').remove();
+                    $('.show').remove();
+                })
+                // return this
+
+            }
+        })
+
+
+    })(jQuery)
+
+    console.log($('.container').Magnifier())
+</script>
+
+</html>
