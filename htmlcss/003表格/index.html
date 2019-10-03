@@ -30,66 +30,69 @@
 <body>
     <center>
         <h3>个人简历</h3>
-    </center>
-    <div class="table">
-        <table border="1px" cellspacing="0">
-            <col width="120px" height="40px">
-            <col width="120px" height="40px">
-            <col width="120px" height="40px">
-            <col width="120px" height="40px">
-            <col width="120px" height="40px">
-            <col width="120px" height="40px">
-            <col width="120px" height="40px">
-            <col width="120px" height="40px">
-            <tr>
-                <td colspan="7">个人简历</td>
-            </tr>
-            <tr>
-                <td>姓名</td>
-                <td><input type="text" class="name"></td>
-                <td>性别</td>
-                <td><input type="text" class="sex"></td>
-                <td>年龄</td>
-                <td><input type="number" class="age"></td>
-                <td rowspan="5">图片</td>
-            </tr>
-            <tr>
-                <td>学历</td>
-                <td><input type="text" class="xueli"></td>
-                <td>籍贯</td>
-                <td colspan="3"><input type="text" class="jg"></td>
-            </tr>
-            <tr>
-                <td>电话</td>
-                <td><input type="" class="phone"></td>
-                <td>政治面貌</td>
-                <td colspan="3"><input type="text" class="zzmm"></td>
-            </tr>
-            <tr>
-                <td>毕业院校</td>
-                <td colspan="5"><input type="text" class="school"></td>
-            </tr>
-            <tr>
-                <td>求职意向</td>
-                <td colspan="5"><input type="text" class="qzyx"></td>
-            </tr>
-        </table>
-    </div>
-    <center><input type="button" value="保存" class="save"></center>
+    <!-- </center> -->
+    <!-- <center> -->
+        <div class="table">
+            <table border="1px" cellspacing="0">
+                <col width="120px" height="40px">
+                <col width="120px" height="40px">
+                <col width="120px" height="40px">
+                <col width="120px" height="40px">
+                <col width="120px" height="40px">
+                <col width="120px" height="40px">
+                <col width="120px" height="40px">
+                <col width="120px" height="40px">
+                <tr>
+                    <td colspan="7">个人简历</td>
+                </tr>
+                <tr>
+                    <td>姓名</td>
+                    <td><input type="text" class="name"></td>
+                    <td>性别</td>
+                    <td><input type="text" class="sex"></td>
+                    <td>年龄</td>
+                    <td><input type="number" class="age"></td>
+                    <td rowspan="5">图片</td>
+                </tr>
+                <tr>
+                    <td>学历</td>
+                    <td><input type="text" class="xueli"></td>
+                    <td>籍贯</td>
+                    <td colspan="3"><input type="text" class="jg"></td>
+                </tr>
+                <tr>
+                    <td>电话</td>
+                    <td><input type="" class="phone"></td>
+                    <td>政治面貌</td>
+                    <td colspan="3"><input type="text" class="zzmm"></td>
+                </tr>
+                <tr>
+                    <td>毕业院校</td>
+                    <td colspan="5"><input type="text" class="school"></td>
+                </tr>
+                <tr>
+                    <td>求职意向</td>
+                    <td colspan="5"><input type="text" class="qzyx"></td>
+                </tr>
+            </table>
+        </div>
+    <!-- </center> -->
+    <!-- <center> -->
+        <input type="button" value="保存" class="save"></center>
 </body>
 <script>
 
     window.onload = function () {
-        var  personalResume = JSON.parse(localStorage.personalResume)
+        var personalResume = JSON.parse(localStorage.personalResume)
         document.querySelector(".name").value = personalResume.name
-        document.querySelector(".sex").value= personalResume.sex
-        document.querySelector(".age").value= personalResume.age
-        document.querySelector(".xueli").value= personalResume.xueli
-        document.querySelector(".phone").value= personalResume.phone
-        document.querySelector(".zzmm").value= personalResume.zzmm
-        document.querySelector(".school").value= personalResume.school
-        document.querySelector(".qzyx").value= personalResume.qzyx
-        document.querySelector(".jg").value= personalResume.jg
+        document.querySelector(".sex").value = personalResume.sex
+        document.querySelector(".age").value = personalResume.age
+        document.querySelector(".xueli").value = personalResume.xueli
+        document.querySelector(".phone").value = personalResume.phone
+        document.querySelector(".zzmm").value = personalResume.zzmm
+        document.querySelector(".school").value = personalResume.school
+        document.querySelector(".qzyx").value = personalResume.qzyx
+        document.querySelector(".jg").value = personalResume.jg
     }
 
     var save = document.querySelector(".save")
