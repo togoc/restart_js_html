@@ -28,9 +28,9 @@
     // $el.appendTo('body') //插入父元素最后
     // $('body').prepend($el);//插入父元素最前
     // $el.prependTo('body')//插入父元素最前
-
-    $('li:eq(2)').after('<li>插入的</li>')
-    $('li:eq(2)').before('<li>插入的</li>')
+    let t = `<li>插入${2}的</li>`
+    $('li:eq(2)').after(t)
+    $('li:eq(2)').before(t)
     // $('li:last').remove()//删除节点
     $('li:last').empty()//删除节点内容
 </script>
