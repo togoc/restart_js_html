@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="/js/juqery_3.4.1.js"></script>
+    <style>
+        button,
+        input[type="submit"] {
+            cursor: pointer;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/post" method="POST">
+        <label for="">用户名:<input name="user" type="text"></label><br>
+        <label for="">密码:<input name="psw" type="password"></label><br>
+        <input type="submit" value="提交">
+    </form>
+    <button onclick=" post()">点击</button>
+</body>
+<script>
+    let data = JSON.stringify({
+        name: 123
+    })
+    console.log((data))
+    console.log(JSON.parse(data))
+    function post() {
+        $.ajax({
+            type: "post", url: "/post", data: '{"name":123}', contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+        })
+    }
+
+
+</script>
+
+</html>
